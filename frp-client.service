@@ -1,0 +1,10 @@
+[Unit]
+Description = frpc start up
+After = network.target
+
+[Service]
+Type = simple
+ExecStart = /usr/local/bin/frpc -c /usr/local/bin/frpc.ini
+
+[Install]
+WantedBy = multi-user.target
