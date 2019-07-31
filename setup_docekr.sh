@@ -1,6 +1,6 @@
 #!/bin/bash
 
-sudo apt install -y curl
+sudo apt install -y curl vim
 
 curl -fsSL get.docker.com -o get-docker.sh
 sudo sh get-docker.sh --mirror Aliyun
