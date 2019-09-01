@@ -7,3 +7,4 @@ sudo sh get-docker.sh --mirror Aliyun
 
 sudo groupadd docker
 sudo usermod -aG docker $USER
+sudo gpasswd -a $USER docker
