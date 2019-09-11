@@ -4,7 +4,27 @@ sudo apt update && sudo apt -y install apt-transport-https ca-certificates curl 
 
 if [ "$1" = 'docker' ] || [ "$1" = 'd' ]; then
     bash ./setup_docker.sh
+    
 fi
+
+sudo touch /etc/docker/daemon.json
+sudo cat > /etc/docker/daemon.json <<EOF
+        {
+          "exec-opts": ["native.cgroupdriver=systemd"],
+          "log-driver": "json-file",
+          "log-opts": {
+            "max-size": "100m"
+          },
+          "storage-driver": "overlay2"
+        }
+EOF
+
+sudo mkdir -p /etc/systemd/system/docker.service.d
+
+# Restart docker.
+sudo systemctl daemon-reload
+sudo systemctl restart docker
+
 
 # curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
 # sudo echo "deb http://apt.kubernetes.io/ kubernetes-xenial main" >> /etc/apt/sources.list.d/kubernetes.list
@@ -32,7 +52,7 @@ sudo swapoff -a
 
 
 if [ "$1" = 'master' ] || [ "$1" = 'm' ]; then
-    sudo sed -i "s/cgroup-driver=systemd/cgroup-driver=cgroupfs/g" /etc/systemd/system/kubelet.service.d/10-kubeadm.conf
-    sudo systemctl daemon-reload
-    sudo systemctl restart kubelet
+    sudo kubeadm init --pod-network-cidr=10.244.0.0/16
+    kubectl apply -f https://git.io/weave-kube-1.6
+    kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/v0.10.0/Documentation/kube-flannel.yml
 fi
