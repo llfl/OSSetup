@@ -19,7 +19,7 @@ sudo echo "deb https://mirrors.aliyun.com/kubernetes/apt/ kubernetes-xenial main
 
 sudo apt update && sudo apt install -y kubelet kubeadm kubectl
 
-swapoff -a
+sudo swapoff -a
 #vim /etc/fstab
 
 
