@@ -8,7 +8,7 @@ if [ "$1" = 'docker' ] || [ "$1" = 'd' ]; then
 fi
 
 sudo touch /etc/docker/daemon.json
-sudo cat > /etc/docker/daemon.json <<EOF
+sudo cat > /etc/docker/daemon.json << EOF
         {
           "exec-opts": ["native.cgroupdriver=systemd"],
           "log-driver": "json-file",
@@ -55,4 +55,11 @@ if [ "$1" = 'master' ] || [ "$1" = 'm' ]; then
     sudo kubeadm init --pod-network-cidr=10.244.0.0/16
     kubectl apply -f https://git.io/weave-kube-1.6
     kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/v0.10.0/Documentation/kube-flannel.yml
+
+    wget https://raw.githubusercontent.com/kubernetes/dashboard/v1.10.1/src/deploy/alternative/kubernetes-dashboard.yaml
+
+# 拉取 kubernetes-dashboard 镜像, 注意版本, 可在 kubernetes-dashboard.yaml 文件中查看
+    docker pull registry.aliyuncs.com/google_containers/kubernetes-dashboard-amd64:v1.10.1
+    docker tag registry.aliyuncs.com/google_containers/kubernetes-dashboard-amd64:v1.10.1 k8s.gcr.io/kubernetes-dashboard-amd64:v1.10.1
+    docker rmi registry.aliyuncs.com/google_containers/kubernetes-dashboard-amd64:v1.10.1
 fi
