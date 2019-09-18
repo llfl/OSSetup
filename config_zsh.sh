@@ -7,5 +7,6 @@ git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:
 cp ~/.zshrc ~/.zshrc_bak
 
 sed -i '/^plugins/s/)/ zsh-autosuggestions zsh-syntax-highlighting)/' ~/.zshrc
+sed -i '/^ZSH_THEME/s/"robbyrussell"/"ys"/' ~/.zshrc
 
 source ~/.zshrc
