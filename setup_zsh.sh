@@ -2,7 +2,7 @@
 
 sudo apt install -y git zsh vim
 
-sudo chsh -s $(which zsh)
+# sudo chsh -s $(which zsh)
 
 sh -c "$(wget https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)"
 
@@ -16,4 +16,5 @@ sed -i '/^plugins/s/)/ zsh-autosuggestions zsh-syntax-highlighting)/' ~/.zshrc
 
 sed -i '/^ZSH_THEME/s/"robbyrussell"/"ys"/' ~/.zshrc
 
+sudo chsh -s $(which zsh)
 source ~/.zshrc
