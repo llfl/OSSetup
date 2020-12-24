@@ -4,5 +4,8 @@ sudo apt update && sudo apt install -y xfce4 xfce4-goodies tightvncserver && mkd
 #!/bin/bash
 
 [ -r $HOME/.Xresources ] && xrdb $HOME/.Xresources
-startxfce4 &
+xfdesktop &
+xfsettingsd &
+xfce4-menu-plugin &
+xfwm4 &
 EOF
